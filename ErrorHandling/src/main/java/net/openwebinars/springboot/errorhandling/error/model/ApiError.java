@@ -3,6 +3,7 @@ package net.openwebinars.springboot.errorhandling.error.model;
 import net.openwebinars.springboot.errorhandling.error.model.impl.ApiErrorImpl;
 import net.openwebinars.springboot.errorhandling.error.model.impl.ApiValidationSubError;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.validation.ObjectError;
 
 import java.time.LocalDateTime;
@@ -10,10 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-
 public interface ApiError {
 
-    HttpStatus getStatus();
+    HttpStatusCode getStatus();
     int getStatusCode();
     String getMessage();
     String getPath();
@@ -37,8 +37,6 @@ public interface ApiError {
               statusCode = status.value();
           }
         }
-
-
 
         ApiErrorImpl result =
                 ApiErrorImpl.builder()

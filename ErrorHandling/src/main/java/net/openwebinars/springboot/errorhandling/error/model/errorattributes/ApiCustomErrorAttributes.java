@@ -3,7 +3,6 @@ package net.openwebinars.springboot.errorhandling.error.model.errorattributes;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import net.openwebinars.springboot.errorhandling.error.model.ApiError;
-import net.openwebinars.springboot.errorhandling.error.model.impl.ApiErrorImpl;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.core.Ordered;

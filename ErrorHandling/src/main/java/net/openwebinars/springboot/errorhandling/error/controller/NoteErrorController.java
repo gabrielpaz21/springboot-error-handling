@@ -1,25 +1,16 @@
 package net.openwebinars.springboot.errorhandling.error.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
 import net.openwebinars.springboot.errorhandling.error.model.ApiError;
-import net.openwebinars.springboot.errorhandling.error.model.impl.ApiErrorImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
-import org.springframework.boot.web.servlet.error.ErrorController;
-import org.springframework.core.Ordered;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.WebRequest;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpServletRequest;
+
+import jakarta.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.Map;
 
@@ -34,7 +25,7 @@ public class NoteErrorController extends AbstractErrorController {
     }
 
     public NoteErrorController(ErrorAttributes errorAttributes)  {
-        // De esta forma, no le permitimos añadir ningún ViewResolver que pueda hacer renderizar una página HTML.
+        // This way, we don't allow you to add any ViewResolver that can render an HTML page.
         super(errorAttributes, Collections.emptyList());
     }
 
@@ -46,7 +37,6 @@ public class NoteErrorController extends AbstractErrorController {
         HttpStatus status = this.getStatus(request);
         return ResponseEntity.status(status).body(apiError);
     }
-
 
 }
 

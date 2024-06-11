@@ -1,6 +1,6 @@
 package net.openwebinars.springboot.errorhandling.exception;
 
-import javax.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 
 public class NoteNotFoundException extends EntityNotFoundException {
 

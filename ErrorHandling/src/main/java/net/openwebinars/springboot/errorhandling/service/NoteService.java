@@ -42,8 +42,8 @@ public class NoteService {
     }
 
     public Note save(Note note) {
-        // En este caso, por ahora, no necesitamos ninguna excepción
-        // más allá del propio mecanismo de validación
+        // In this case, for now, we don't need any exceptions
+        // beyond the validation mechanism itself
         return repository.save(note);
     }
 
@@ -56,12 +56,12 @@ public class NoteService {
                     note.setImportant(edited.isImportant());
                     return repository.save(note);
                 })
-                .orElseThrow(() -> new NoteNotFoundException());
+                .orElseThrow(NoteNotFoundException::new);
     }
 
     public void delete(Long id) {
-        // En este caso no queremos usar excepciones, sino directamente
-        // prevenir el posible error
+        // In this case, we do not want to use exceptions, but directly
+        // prevent possible error
         if (repository.existsById(id))
             repository.deleteById(id);
     }

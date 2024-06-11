@@ -2,16 +2,12 @@ package net.openwebinars.springboot.errorhandling.controller;
 
 import lombok.RequiredArgsConstructor;
 import net.openwebinars.springboot.errorhandling.model.Note;
-import net.openwebinars.springboot.errorhandling.repo.NoteRepository;
 import net.openwebinars.springboot.errorhandling.service.NoteService;
-import org.apache.coyote.Response;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -26,21 +22,20 @@ public class NoteController {
     @GetMapping("/")
     //public ResponseEntity<List<Note>> getAll() {
     public List<Note> getAll() {
-        // Utilizamos un método comun para devolver la respuesta de todos los List<Note>
+        // We use a common method to return the response of all List<Note>
         //return buildResponseOfAList(repository.findAll());
 
         return noteService.findAll();
 
     }
 
-
     @GetMapping("/{id}")
     //public ResponseEntity<Note> getById(@PathVariable Long id) {
     public Note getById(@PathVariable Long id) {
         /*
-            El método ResponseEntity.of recibe como argumento un Optional<?> y devuelve
-                - 200 Ok si Optional.isPresent() == true
-                - 404 Not Found si Optional.isEmpty() == true
+         The ResponseEntity.of method takes an Optional<?> as an argument and returns
+         - 200 Ok if Optional.isPresent() == true
+         - 404 Not Found if Optional.isEmpty() == true
          */
         //return ResponseEntity.of(repository.findById(id));
 
@@ -48,31 +43,27 @@ public class NoteController {
 
     }
 
-
     @GetMapping("/author/{author}")
     //public ResponseEntity<List<Note>> getByAuthor(@PathVariable String author) {
     public List<Note> getByAuthor(@PathVariable String author) {
-        // Utilizamos un método comun para devolver la respuesta de todos los List<Note>
+        // We use a common method to return the response of all List<Note>
         //return buildResponseOfAList(repository.findByAuthor(author));
 
         return noteService.getByAuthor(author);
     }
 
     /*private ResponseEntity<List<Note>> buildResponseOfAList(List<Note> list) {
-
         if (list.isEmpty())
             //return ResponseEntity.notFound().build();
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No notes found");
         else
             return ResponseEntity.ok(list);
-
-
     }*/
 
     @PostMapping("/")
     public ResponseEntity<Note> createNewNote(@Valid @RequestBody Note note) {
 
-        // En este método sí queremos gestionar la respuesta, para devolver 201
+        // In this method, we do want to manage the response, to return 201
         Note created = noteService.save(note);
 
         URI createdURI = ServletUriComponentsBuilder
@@ -81,9 +72,9 @@ public class NoteController {
                 .buildAndExpand(created.getId()).toUri();
 
         /*
-            Habitualmente, la respuesta correcta de una petición POST es 201 Created.
-            Adicionalmente, se puede devolver un encabezado Location con la URI que
-            nos permite realizar la petición GET al recurso recién creado.
+         Typically, the correct response to a POST request is 201 Created.
+         Additionally, a Location header can be returned with the URI that
+         allows us to make the GET request to the newly created resource.
          */
         return ResponseEntity
                 .created(createdURI)
@@ -108,13 +99,12 @@ public class NoteController {
                     }));
            */
 
-
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable Long id) {
 
-        // Dejamos esta línea comentada para provocar un error 500 si eliminamos dos veces un mismo recurso
+        // We leave this line commented to cause a 500 error if we delete the same resource twice
         //if (repository.existsById(id))
         //   repository.deleteById(id);
         noteService.delete(id);
@@ -122,8 +112,5 @@ public class NoteController {
         return ResponseEntity.noContent().build();
 
     }
-
-
-
 
 }
